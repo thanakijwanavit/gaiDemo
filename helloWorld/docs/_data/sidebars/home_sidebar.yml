@@ -13,7 +13,7 @@ entries:
       title: app module
       url: app.html
     - output: web,pdf
-      title: SDK
+      title: Title
       url: sdk.html
     output: web
     title: helloWorld

@@ -2,12 +2,9 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"lambda_handler": "app.ipynb",
-         "shorten": "sdk.ipynb",
-         "url": "sdk.ipynb"}
+index = {"lambda_handler": "app.ipynb"}
 
-modules = ["app.py",
-           "sdk.py"]
+modules = ["app.py"]
 
 doc_url = "https://fastai.github.io/helloWorld/"
 
