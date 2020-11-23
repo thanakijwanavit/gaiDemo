@@ -33,8 +33,8 @@ jobs:
           sam build --debug&&\
           sam deploy --profile villaaws --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND --debug --parameter-overrides \
           --stack-name gai-test-$CIRCLE_BRANCH
+workflows:
   test-env-vars:
     jobs:
-      #- reviewCode
       - buildWithDocker:
           context: awsKeys
