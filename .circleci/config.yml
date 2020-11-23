@@ -30,7 +30,7 @@ jobs:
       - run: echo $CIRCLE_BRANCH
       - run: |
           sam build --debug&&\
-          sam deploy --profile villaaws --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND --debug --parameter-overrides \
+          sam deploy --profile villaaws --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND --debug \
           --stack-name gai-test-$CIRCLE_BRANCH
 workflows:
   test-env-vars:
