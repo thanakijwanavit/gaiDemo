@@ -1,0 +1,40 @@
+version: 2.1
+
+orbs:
+  sam: circleci/aws-sam-serverless@1.0.1
+  sonarcloud: sonarsource/sonarcloud@1.0.1
+
+jobs:
+  reviewCode:
+    docker:
+      - image: 'node:latest'
+    steps:
+      - checkout
+      - sonarcloud/scan
+
+  buildWithDocker:
+    docker:
+      - image: thanakijwanavit/samdocker:262b65b9daa5ae84f9b8b33670f50f69f5e4c8ee
+    steps:
+      - checkout
+      - run: which aws
+      - run: sam --version
+      - run: |
+          aws configure set aws_access_key_id $AWSKEY &&\
+          aws configure set aws_secret_access_key $AWSSECRET &&\
+          aws configure set default.region ap-southeast-1
+      - run: |
+          aws configure --profile villaaws set aws_access_key_id $AWSKEY &&\
+          aws configure --profile villaaws set aws_secret_access_key $AWSSECRET &&\
+          aws configure --profile villaaws set default.region ap-southeast-1
+      - run: echo $CIRCLE_BRANCH
+      - run: |
+          cd villa-wallet-sam &&\
+          sam build --debug&&\
+          sam deploy --profile villaaws --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND --debug --parameter-overrides \
+          --stack-name gai-test-$CIRCLE_BRANCH
+  test-env-vars:
+    jobs:
+      #- reviewCode
+      - buildWithDocker:
+          context: awsKeys
