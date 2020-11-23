@@ -29,7 +29,6 @@ jobs:
           aws configure --profile villaaws set default.region ap-southeast-1
       - run: echo $CIRCLE_BRANCH
       - run: |
-          cd villa-wallet-sam &&\
           sam build --debug&&\
           sam deploy --profile villaaws --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND --debug --parameter-overrides \
           --stack-name gai-test-$CIRCLE_BRANCH
